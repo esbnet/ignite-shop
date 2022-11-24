@@ -1,9 +1,27 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import { styled } from "../../styles"
+
+const Button = styled("button", {
+  background: "$gree300",
+  borderRadius: 4,
+  border: 0,
+  padding: '4px 8px',
+
+  span: {
+    fontWeight: "bold",
+  },
+
+  '&:hover': {
+    filter: 'brightness(0.8)'
+  }
+})
 
 export default function Home() {
   return (
-    <h1>Hello</h1>
+    <>
+      <Button>
+        <span>Teste </span>
+        Enviar
+        </Button>
+    </>
   )
 }
