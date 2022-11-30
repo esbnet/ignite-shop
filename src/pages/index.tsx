@@ -37,7 +37,7 @@ export default function Home({ products }: HomeProps) {
             <Image src={product.imagesUrl} width={520} height={480} alt='' />
             <footer>
               <strong>{product.name}</strong>
-              <span>R$ {product.price > 0 ? product.price / 100 : 0}</span>
+              <span>{product.price}</span>
             </footer>
           </Product>
         )
@@ -55,11 +55,20 @@ export const getStaticProps: GetStaticProps = async () => {
   const products = res.data.map(product => {
     var price = product.default_price as Stripe.Price
 
+    if (Number(price.unit_amount) > 0) {
+      price.unit_amount = Number(price.unit_amount) / 100
+    } else {
+      price.unit_amount = 0.00
+    }
+
     return {
       id: product.id,
       name: product.name,
       imagesUrl: product.images[0],
-      price: price.unit_amount,
+      price: new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+      }).format(Number(price.unit_amount)),
     }
   })
 
@@ -67,6 +76,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       products
     },
-    revalidate: 10
+    revalidate: 60 * 60 * 2 // 2 hours
   }
 }
