@@ -8,6 +8,7 @@ import { HomeContainer, Product } from "../../styles/pages/home"
 
 import { stripe } from '../lib/stripe'
 
+import Link from 'next/link'
 import Stripe from 'stripe'
 
 interface HomeProps {
@@ -33,13 +34,15 @@ export default function Home({ products }: HomeProps) {
 
       {products.map((product) => {
         return (
-          <Product className="keen-slider__slide" key={product.id}>
-            <Image src={product.imagesUrl} width={520} height={480} alt='' />
-            <footer>
-              <strong>{product.name}</strong>
-              <span>{product.price}</span>
-            </footer>
-          </Product>
+          <Link key={product.id} href={`/product/${product.id}`}>
+            <Product className="keen-slider__slide">
+              <Image src={product.imagesUrl} width={520} height={480} alt='' />
+              <footer>
+                <strong>{product.name}</strong>
+                <span>{product.price}</span>
+              </footer>
+            </Product>
+          </Link>
         )
       })}
 
