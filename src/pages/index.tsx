@@ -4,7 +4,7 @@ import { GetStaticProps } from 'next'
 import Image from "next/image"
 
 import 'keen-slider/keen-slider.min.css'
-import { HomeContainer, Product } from "../../styles/pages/home"
+import { HomeContainer, Product } from "../styles/pages/home"
 
 import { stripe } from '../lib/stripe'
 

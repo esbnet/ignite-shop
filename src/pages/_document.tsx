@@ -1,6 +1,6 @@
-import { Html, Head, Main, NextScript } from "next/document"
+import { Head, Html, Main, NextScript } from "next/document";
 
-import { getCssText } from '../../styles';
+import { getCssText } from '../styles';
 
 export default function Document() {
   return (
