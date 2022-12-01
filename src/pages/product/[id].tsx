@@ -13,10 +13,15 @@ interface ProductProps {
     imagesUrl: string,
     price: string,
     description: string,
+    defaultPriceId: string
   }
 }
 
 export default function Product({ product }: ProductProps) {
+
+  function handleBuyProduct() {
+    console.log(product.defaultPriceId)
+  }
 
   const { isFallback } = useRouter()
 
@@ -32,7 +37,7 @@ export default function Product({ product }: ProductProps) {
           <h1>{product.name}</h1>
           <span>{product.price}</span>
           <p>{product.description}</p>
-          <button>Comprar agora</button>
+          <button onClick={handleBuyProduct} > Comprar agora </button>
         </ProductDetails>
       </ProductContainer>
     )
@@ -50,9 +55,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }: any) => {
   const productId = params.id;
+
   const product = await stripe.products.retrieve(productId, {
     expand: ['default_price'],
   })
+
   const price = product.default_price as Stripe.Price
 
   if (Number(price.unit_amount) > 0) {
@@ -72,6 +79,7 @@ export const getStaticProps: GetStaticProps = async ({ params }: any) => {
           currency: 'BRL'
         }).format(Number(price.unit_amount)),
         description: product.description,
+        defaultPriceId: price.id,
       }
     },
     revalidate: 60 * 60 * 1, // 1 hour
