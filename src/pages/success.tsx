@@ -18,22 +18,17 @@ export default function Success({ costumerName, product }: SuccessProps) {
   return (
     <>
       <Head>
-        <title>Compra efetuada | Ignite Shop</title>
-
+        <title>Compra realizada | Ignite Shop</title>
         <meta name="robots" content="noindex" />
       </Head>
-
       <SuccessContainer>
         <h1>Compra efetuada</h1>
-
         <ImageContainer>
           <Image src={product.imageUrl} width={120} height={110} alt="" />
         </ImageContainer>
-
         <p>
           Uhuul <span>{costumerName}</span>, sua <span>{product.name}</span> já está a caminho da sua casa.
         </p>
-
         <Link href="/">
           Voltar ao catálogo
         </Link>
